@@ -15,8 +15,9 @@ func _ready() -> void:
 			var mid := (prev_pos + pos) / 2.0
 			var rail := MeshInstance3D.new()
 			rail.mesh = schiene
-			rail.position = mid
-			rail.rotation = global_transform.basis.get_euler() * (180.0 / PI) + Vector3(0, 0, 180)
+			rail.position = mid # WIESO IST Z UM 10K GRAD GEFREHT
+			rail.rotation = global_transform.basis.get_euler() #+ Vector3(0, 0, 180)
+			rail.rotation.z = 180
 			path.add_child(rail)
 		prev_pos = pos
 		first = false
