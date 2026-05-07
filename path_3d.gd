@@ -13,13 +13,10 @@ func _ready() -> void:
 		var pos := path.curve.sample_baked(d)
 		if not first:
 			var mid := (prev_pos + pos) / 2.0
-			var diff := pos - prev_pos
-			var dist := diff.length()
 			var rail := MeshInstance3D.new()
 			rail.mesh = schiene
 			rail.position = mid
-			rail.scale = Vector3(dist, 1.0, 1.0)
-			rail.rotation = Vector3i($"Path3D/PathFollow3D/Train".rotation_degrees()) #global_transform.basis.get_euler() * (180.0 / PI) * Vector3(1, 1, 0)
+			rail.rotation = global_transform.basis.get_euler() * (180.0 / PI) + Vector3(0, 0, 180)
 			path.add_child(rail)
 		prev_pos = pos
 		first = false
