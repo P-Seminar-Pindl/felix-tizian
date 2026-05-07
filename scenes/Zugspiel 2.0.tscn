@@ -1,0 +1,174 @@
+[gd_scene load_steps=19 format=3 uid="uid://bjq5rebho4tdr"]
+
+[ext_resource type="Texture2D" uid="uid://4guwgahfo21f" path="res://assets/textures/grass.bmp" id="1_8uu4m"]
+[ext_resource type="Script" uid="uid://dvs6b4s607qdt" path="res://src/train.gd" id="1_mbx4o"]
+[ext_resource type="Script" uid="uid://bhk7swk7xodpk" path="res://src/path_3d.gd" id="2_iip1w"]
+[ext_resource type="Script" uid="uid://cwr01nyqika8a" path="res://src/path_follow_3d.gd" id="3_mufa6"]
+[ext_resource type="ArrayMesh" uid="uid://cx320juvmmel6" path="res://assets/models/218.obj" id="5_2ivqk"]
+
+[sub_resource type="GDScript" id="GDScript_mufa6"]
+script/source = "extends Node3D
+
+@export var path: Path3D
+@export var thickness: float = 1
+@export var samples: int = 100
+
+func _ready() -> void:
+	if path == null:
+		return
+
+func _make_line(side_offset: float) -> void:
+	var points: Array[Vector3] = []
+
+	# build quad strip: two triangles per segment
+	var verts: PackedVector3Array = []
+	var up := Vector3.UP * thickness
+
+	for i in range(points.size() - 1):
+		var a := points[i]
+		var b := points[i + 1]
+		# quad: two triangles
+		verts.append(a - up)
+		verts.append(a + up)
+		verts.append(b + up)
+		verts.append(a - up)
+		verts.append(b + up)
+		verts.append(b - up)
+
+	var arr := []
+	arr.resize(Mesh.ARRAY_MAX)
+	arr[Mesh.ARRAY_VERTEX] = verts
+
+	var am := ArrayMesh.new()
+	am.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arr)
+
+	var mi := MeshInstance3D.new()
+	mi.mesh = am
+
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Color.GREEN
+	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	mi.material_override = mat
+
+	add_child(mi)
+"
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8uu4m"]
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_iip1w"]
+_shader_parameters = {
+&"bias_distance": 512.0,
+&"blend_sharpness": 0.5,
+&"depth_blur": 0.0,
+&"enable_macro_variation": true,
+&"enable_projection": true,
+&"flat_terrain_normals": false,
+&"macro_variation1": Color(1, 1, 1, 1),
+&"macro_variation2": Color(1, 1, 1, 1),
+&"macro_variation_slope": 0.333,
+&"mipmap_bias": 1.0,
+&"noise1_angle": 0.0,
+&"noise1_offset": Vector2(0.5, 0.5),
+&"noise1_scale": 0.65600003116,
+&"noise2_scale": 0.076,
+&"noise_texture": SubResource("NoiseTexture2D_8uu4m"),
+&"projection_threshold": 0.8
+}
+world_background = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mufa6"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_2ivqk"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_mufa6")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Image" id="Image_2ivqk"]
+data = {
+"data": PackedByteArray(255, 255, 73, 146, 36, 73, 146, 36, 95, 132, 95, 115, 170, 170, 170, 170, 255, 255, 73, 146, 36, 73, 146, 36, 95, 132, 95, 115, 170, 170, 170, 170, 255, 255, 73, 146, 36, [...]),
+"format": "DXT5 RGBA8",
+"height": 228,
+"mipmaps": true,
+"width": 228
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_iip1w"]
+image = SubResource("Image_2ivqk")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_sg5w1"]
+name = "grass"
+albedo_texture = ExtResource("1_8uu4m")
+normal_texture = SubResource("ImageTexture_iip1w")
+normal_depth = 0.0
+uv_scale = 0.5
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_rn7um"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_2ivqk")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_sg5w1")])
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mbx4o"]
+
+[sub_resource type="Sky" id="Sky_8uu4m"]
+sky_material = SubResource("ProceduralSkyMaterial_mbx4o")
+
+[sub_resource type="Environment" id="Environment_iip1w"]
+background_mode = 2
+sky = SubResource("Sky_8uu4m")
+
+[sub_resource type="Curve3D" id="Curve3D_mufa6"]
+closed = true
+_data = {
+"points": PackedVector3Array(6.1139193, 0, -1.9905348, -6.1139193, 0, 1.9905348, -16.463737, 0, -10.925078, -1.7844124, 0, -16.37151, 1.7844124, 0, 16.37151, -28.440372, 0, 13.195087, -11.326933,[...]),
+"tilts": PackedFloat32Array(0, 0, 0, 0, -1.2575779)
+}
+point_count = 5
+
+[node name="World" type="Node3D"]
+script = SubResource("GDScript_mufa6")
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+data_directory = "res://terr"
+material = SubResource("Terrain3DMaterial_iip1w")
+assets = SubResource("Terrain3DAssets_rn7um")
+save_16_bit = true
+collision_mode = 0
+show_instances = false
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iip1w")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(-0.99999887, 0, 0.0015009954, 0, 1, 0, -0.0015009954, 0, -0.99999887, 0, 0, 0)
+curve = SubResource("Curve3D_mufa6")
+script = ExtResource("2_iip1w")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.30957878, 0, 0.9508693, 0, 1, 0, -0.9508693, 0, -0.30957878, -16.463737, 0, -10.925078)
+script = ExtResource("3_mufa6")
+
+[node name="Train" type="CharacterBody3D" parent="Path3D/PathFollow3D"]
+unique_name_in_owner = true
+transform = Transform3D(1.0000035, 0, 0, 0, 1, 0, 0, 0, 1.0000035, 0, 0, 0)
+script = ExtResource("1_mbx4o")
+
+[node name="Führerstand" type="Camera3D" parent="Path3D/PathFollow3D/Train"]
+transform = Transform3D(-1.0000008, 0, -8.742285e-08, 0, 1, 0, 8.742285e-08, 0, -1.0000008, 0.8497238, 1.2661508, -2.4886665)
+current = true
+
+[node name="218" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
+transform = Transform3D(-0.09999236, 0, 0.0012390185, 0, 0.09999999, 0, -0.0012390185, 0, -0.09999236, -0.048402786, 0.17071366, -0.9286308)
+mesh = ExtResource("5_2ivqk")
