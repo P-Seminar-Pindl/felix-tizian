@@ -19,8 +19,7 @@ func _ready() -> void:
 			rail.mesh = schiene
 			rail.position = mid
 			rail.scale = Vector3(dist, 1.0, 1.0)
-			rail.rotation = global_transform.basis.get_euler() * (180.0 / PI) * Vector3(0, 1, 0)
-			print(rail.rotation_degrees)
+			rail.rotation = Vector3i($"Path3D/PathFollow3D/Train".rotation_degrees()) #global_transform.basis.get_euler() * (180.0 / PI) * Vector3(1, 1, 0)
 			path.add_child(rail)
 		prev_pos = pos
 		first = false
