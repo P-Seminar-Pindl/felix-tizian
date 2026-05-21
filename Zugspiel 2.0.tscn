@@ -130,10 +130,10 @@ sky = SubResource("Sky_8uu4m")
 [sub_resource type="Curve3D" id="Curve3D_mufa6"]
 closed = true
 _data = {
-"points": PackedVector3Array(6.1139193, 0, -1.9905348, -6.1139193, 0, 1.9905348, -16.463737, 0, -10.925078, -1.7844124, 0, -16.37151, 1.7844124, 0, 16.37151, -28.440372, 0, 13.195087, -11.326933, 0, -1.8193512, 11.326933, 0, 1.8193512, -9.964603, 0, 36.963493, -3.9476385, -0.17076683, 9.131593, 3.9476385, 0.17076683, -9.131593, 13.850882, 1.8268929, 30.174606, 10.158898, -0.10967255, 20.244995, -10.158898, 0.10967255, -20.244995, 22.196642, 4.4185505, 2.6365418),
-"tilts": PackedFloat32Array(0, 0, 0, 0, -1.2575779)
+"points": PackedVector3Array(6.1139193, 0, -1.9905348, -6.1139193, 0, 1.9905348, -16.463737, 0.4734459, -67.30126, -1.7844124, 0, -16.37151, 1.7844124, 0, 16.37151, -74.83254, 0.45176983, -28.65944, 0, 0, 0, 0, 0, 0, 3.0868812, 14.92112, 44.850082, 10.158898, -0.10967255, 20.244995, -10.158898, 0.10967255, -20.244995, 30.584517, 4.4185505, -39.13831),
+"tilts": PackedFloat32Array(0, 0, 0, -1.2575779)
 }
-point_count = 5
+point_count = 4
 
 [node name="World" type="Node3D"]
 script = SubResource("GDScript_mufa6")
@@ -152,12 +152,11 @@ metadata/_edit_lock_ = true
 environment = SubResource("Environment_iip1w")
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(-0.99999887, 0, 0.0015009954, 0, 1, 0, -0.0015009954, 0, -0.99999887, 0, 0, 0)
 curve = SubResource("Curve3D_mufa6")
 script = ExtResource("2_iip1w")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(-0.30957878, 0, 0.9508693, 0, 1, 0, -0.9508693, 0, -0.30957878, -16.463737, 0, -10.925078)
+transform = Transform3D(-0.3095782, 0, 0.9508695, 0, 1, 0, -0.9508695, 0, -0.3095782, -16.463737, 0.4734459, -67.30126)
 script = ExtResource("3_mufa6")
 
 [node name="Train" type="CharacterBody3D" parent="Path3D/PathFollow3D"]

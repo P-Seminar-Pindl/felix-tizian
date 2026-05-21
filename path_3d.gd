@@ -3,7 +3,7 @@ extends Node3D
 func _ready() -> void:
 	if path == null:
 		return
-	var schiene = load("res://schiene.obj")
+	"""var schiene = load("res://schiene.obj")
 	var length := path.curve.get_baked_length()
 	var step := 0.5
 	var d := 0.0
@@ -21,4 +21,4 @@ func _ready() -> void:
 			path.add_child(rail)
 		prev_pos = pos
 		first = false
-		d += step
+		d += step"""
