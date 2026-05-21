@@ -16,7 +16,9 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Zugspiel 3d 2.0"
 run/main_scene="uid://bjq5rebho4tdr"
+run/main_loop_type=""
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [editor_plugins]
