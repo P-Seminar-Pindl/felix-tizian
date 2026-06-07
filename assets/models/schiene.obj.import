@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://3pxybqcn7k5c"
-path="res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh"
+path="res://.godot/imported/schiene.obj-1089a6c86ab9a7c7d2141f21d5246f0e.mesh"
 
 [deps]
 
-files=["res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh"]
+files=["res://.godot/imported/schiene.obj-1089a6c86ab9a7c7d2141f21d5246f0e.mesh"]
 
 source_file="res://assets/models/schiene.obj"
-dest_files=["res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh", "res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh"]
+dest_files=["res://.godot/imported/schiene.obj-1089a6c86ab9a7c7d2141f21d5246f0e.mesh", "res://.godot/imported/schiene.obj-1089a6c86ab9a7c7d2141f21d5246f0e.mesh"]
 
 [params]
 

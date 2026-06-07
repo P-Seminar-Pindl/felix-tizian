@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://cx320juvmmel6"
-path="res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh"
+path="res://.godot/imported/218.obj-1fa7b4f9b7ec7b5c201c76f36de4883a.mesh"
 
 [deps]
 
-files=["res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh"]
+files=["res://.godot/imported/218.obj-1fa7b4f9b7ec7b5c201c76f36de4883a.mesh"]
 
 source_file="res://assets/models/218.obj"
-dest_files=["res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh", "res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh"]
+dest_files=["res://.godot/imported/218.obj-1fa7b4f9b7ec7b5c201c76f36de4883a.mesh", "res://.godot/imported/218.obj-1fa7b4f9b7ec7b5c201c76f36de4883a.mesh"]
 
 [params]
 

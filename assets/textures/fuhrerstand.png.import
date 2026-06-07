@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnio0g2fsuacx"
-path="res://.godot/imported/fuhrerstand.png-d20380f8559f938e9ea66f94886f75ff.ctex"
+path="res://.godot/imported/fuhrerstand.png-d5ed5f50289df66d1e28d55a0980f661.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://assets/textures/fuhrerstand.png"
-dest_files=["res://.godot/imported/fuhrerstand.png-d20380f8559f938e9ea66f94886f75ff.ctex"]
+dest_files=["res://.godot/imported/fuhrerstand.png-d5ed5f50289df66d1e28d55a0980f661.ctex"]
 
 [params]
 

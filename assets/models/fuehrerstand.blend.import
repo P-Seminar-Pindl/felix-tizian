@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://g3pmkiip1a3p"
-path="res://.godot/imported/führerstand.blend-eed303b8e7c668f7eaab9e55213d1eec.scn"
+path="res://.godot/imported/fuehrerstand.blend-a92a3bdf19320e53edcebadc1e50fdba.scn"
 
 [deps]
 
 source_file="res://assets/models/fuehrerstand.blend"
-dest_files=["res://.godot/imported/führerstand.blend-eed303b8e7c668f7eaab9e55213d1eec.scn"]
+dest_files=["res://.godot/imported/fuehrerstand.blend-a92a3bdf19320e53edcebadc1e50fdba.scn"]
 
 [params]
 
