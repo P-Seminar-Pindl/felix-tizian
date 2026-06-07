@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://fuhrerstand.png"
+source_file="res://assets/textures/fuhrerstand.png"
 dest_files=["res://.godot/imported/fuhrerstand.png-d20380f8559f938e9ea66f94886f75ff.ctex"]
 
 [params]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=19 format=3 uid="uid://bjq5rebho4tdr"]
 
-[ext_resource type="Texture2D" uid="uid://4guwgahfo21f" path="res://grass.bmp" id="1_8uu4m"]
-[ext_resource type="Script" uid="uid://dvs6b4s607qdt" path="res://train.gd" id="1_mbx4o"]
-[ext_resource type="Script" uid="uid://bhk7swk7xodpk" path="res://path_3d.gd" id="2_iip1w"]
-[ext_resource type="Script" uid="uid://cwr01nyqika8a" path="res://path_follow_3d.gd" id="3_mufa6"]
-[ext_resource type="ArrayMesh" uid="uid://cx320juvmmel6" path="res://218.obj" id="5_2ivqk"]
+[ext_resource type="Texture2D" uid="uid://4guwgahfo21f" path="res://assets/textures/grass.bmp" id="1_8uu4m"]
+[ext_resource type="Script" uid="uid://dvs6b4s607qdt" path="res://scripts/train.gd" id="1_mbx4o"]
+[ext_resource type="Script" uid="uid://bhk7swk7xodpk" path="res://scripts/path_3d.gd" id="2_iip1w"]
+[ext_resource type="Script" uid="uid://cwr01nyqika8a" path="res://scripts/path_follow_3d.gd" id="3_mufa6"]
+[ext_resource type="ArrayMesh" uid="uid://cx320juvmmel6" path="res://assets/models/218.obj" id="5_2ivqk"]
 
 [sub_resource type="GDScript" id="GDScript_mufa6"]
 script/source = "extends Node3D

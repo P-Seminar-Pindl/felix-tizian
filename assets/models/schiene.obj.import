@@ -10,7 +10,7 @@ path="res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh"
 
 files=["res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh"]
 
-source_file="res://schiene.obj"
+source_file="res://assets/models/schiene.obj"
 dest_files=["res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh", "res://.godot/imported/schiene.obj-4685bfe7d1341156fe6396d64f0179a9.mesh"]
 
 [params]

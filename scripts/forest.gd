@@ -1,6 +1,6 @@
 extends MultiMeshInstance3D
 
-@export var tree_scene := preload("res://Tree.tscn")
+@export var tree_scene := preload("res://scenes/tree.tscn")
 @export var count := 300
 @export var area_size := 50.0
 

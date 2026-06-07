@@ -11,7 +11,7 @@ metadata={
 
 [deps]
 
-source_file="res://grass.jpg"
+source_file="res://assets/textures/grass.jpg"
 dest_files=["res://.godot/imported/grass.jpg-4ca37d76c8b391a7e96ec05260cb4207.s3tc.ctex"]
 
 [params]

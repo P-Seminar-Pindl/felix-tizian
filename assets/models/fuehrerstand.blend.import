@@ -8,7 +8,7 @@ path="res://.godot/imported/führerstand.blend-eed303b8e7c668f7eaab9e55213d1eec.
 
 [deps]
 
-source_file="res://führerstand.blend"
+source_file="res://assets/models/fuehrerstand.blend"
 dest_files=["res://.godot/imported/führerstand.blend-eed303b8e7c668f7eaab9e55213d1eec.scn"]
 
 [params]

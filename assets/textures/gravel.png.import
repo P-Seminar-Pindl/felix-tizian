@@ -10,7 +10,7 @@ metadata={
 
 [deps]
 
-source_file="res://gravel.png"
+source_file="res://assets/textures/gravel.png"
 dest_files=["res://.godot/imported/gravel.png-f5660d2eb20170f33a57a0337e1c7297.ctex"]
 
 [params]

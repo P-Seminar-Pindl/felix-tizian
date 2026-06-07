@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://bjq5rebho4tdr"]
 
-[ext_resource type="Script" uid="uid://dvs6b4s607qdt" path="res://train.gd" id="1_nbyt5"]
-[ext_resource type="Script" uid="uid://cwd5auf5nfnd4" path="res://forest.gd" id="2_dn7q5"]
+[ext_resource type="Script" uid="uid://dvs6b4s607qdt" path="res://scripts/train.gd" id="1_nbyt5"]
+[ext_resource type="Script" uid="uid://cwd5auf5nfnd4" path="res://scripts/forest.gd" id="2_dn7q5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mbx4o"]
 albedo_color = Color(2.1658838e-07, 0.27704737, 0.026682943, 1)

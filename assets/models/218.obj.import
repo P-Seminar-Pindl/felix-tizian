@@ -10,7 +10,7 @@ path="res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh"
 
 files=["res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh"]
 
-source_file="res://218.obj"
+source_file="res://assets/models/218.obj"
 dest_files=["res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh", "res://.godot/imported/218.obj-7e8e3edf518dbf5764c21011bc82bd8f.mesh"]
 
 [params]
