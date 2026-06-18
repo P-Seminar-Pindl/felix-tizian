@@ -153,23 +153,23 @@ metadata/_edit_lock_ = true
 environment = SubResource("Environment_iip1w")
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(-0.99999887, 0, 0.0015009954, 0, 1, 0, -0.0015009954, 0, -0.99999887, 0, 0, 0)
+transform = Transform3D(-0.99999887, 0, 0.0015009954, 0, 1, 0, -0.0015009954, 0, -0.99999887, 0, 1, 0)
 curve = SubResource("Curve3D_mufa6")
 script = ExtResource("2_iip1w")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.9178932, -0.0068104183, -0.3967513, -2.3282899e-10, 0.9998527, -0.017162688, 0.39680976, 0.015753737, 0.917758, 434.31302, 0, 124.01492)
+transform = Transform3D(0.51640916, -0.014697191, -0.8562079, 1.9459834e-10, 0.9998527, -0.01716269, 0.85633385, 0.0088630915, 0.5163334, 436.55948, 2.3841858e-07, 122.57002)
 script = ExtResource("3_mufa6")
 
 [node name="Train" type="CharacterBody3D" parent="Path3D/PathFollow3D"]
 unique_name_in_owner = true
-transform = Transform3D(1.0000035, 0, 0, 0, 1, 0, 0, 0, 1.0000035, 0, 0, 0)
+transform = Transform3D(0.9985988, 0.0009092917, 0.05297321, -0.00090930145, 0.99999946, -2.4096575e-05, -0.05297336, -2.4098903e-05, 0.9985994, 0, 0, 0)
 script = ExtResource("1_mbx4o")
 max_speed = 20.0
 acceleration = 10.0
 
 [node name="Führerstand" type="Camera3D" parent="Path3D/PathFollow3D/Train"]
-transform = Transform3D(-1.0000008, 0, -8.742285e-08, 0, 1, 0, 8.742285e-08, 0, -1.0000008, 0.8497238, 1.2661508, -2.4886665)
+transform = Transform3D(-1.0000038, 1.5832484e-08, -8.940697e-08, 0, 1, 9.313226e-09, 1.1920929e-07, 1.8626451e-09, -1.0000031, -0.025421143, 1.0659904, -1.0587463)
 current = true
 
 [node name="218" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
