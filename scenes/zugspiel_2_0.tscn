@@ -182,8 +182,17 @@ max_speed = 20.0
 acceleration = 10.0
 
 [node name="Führerstand" type="Camera3D" parent="Path3D/PathFollow3D/Train"]
-transform = Transform3D(-1.0000038, 1.5832484e-08, -8.940697e-08, 0, 1, 9.313226e-09, 1.1920929e-07, 1.8626451e-09, -1.0000031, -0.025421143, 1.0659904, -1.0587463)
+transform = Transform3D(-1.0000037, 1.5832484e-08, -2.0861626e-07, 9.313226e-10, 1, 8.381903e-09, 1.4901161e-07, 4.656613e-10, -1.0000031, -0.025421143, 1.8789332, -1.0726929)
 current = true
+
+[node name="speed" type="Label3D" parent="Path3D/PathFollow3D/Train/Führerstand"]
+transform = Transform3D(0.99989915, 0.00024473388, -0.014256805, -0.00024471432, 1.0000017, 1.7378479e-06, 0.014256835, 1.7662533e-06, 0.9998989, -1.1105652, 0.6697588, -0.9216614)
+no_depth_test = true
+fixed_size = true
+modulate = Color(0.19076344, 0.49791318, 0.62104434, 1)
+text = "888888 h5"
+font_size = 12
+outline_size = 0
 
 [node name="218" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
 transform = Transform3D(-0.09999236, 0, 0.0012390185, 0, 0.09999999, 0, -0.0012390185, 0, -0.09999236, -0.048402786, 0.17071366, -0.9286308)

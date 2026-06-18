@@ -15,6 +15,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if path_follow == null:
 		return
+		
+	var tacho := $"./Führerstand/speed"
+	var stext = round(current_speed)*-1
+	get_node(tacho.get_path()).text = str("Speed: "+str(stext))
 
 	var input_dir := 0.0
 	if Input.is_key_pressed(KEY_DOWN):
