@@ -8,7 +8,7 @@ extends Node3D
 @export var track_separation := 1.5 
 
 # Color of the lines in the viewport
-@export var track_color := Color(1, 1, 1) 
+@export var track_color := Color8(255, 255, 255, 255) 
 
 func _ready() -> void:
 	if path == null or path.curve == null:
