@@ -126,6 +126,8 @@ sky_material = SubResource("ProceduralSkyMaterial_mbx4o")
 [sub_resource type="Environment" id="Environment_iip1w"]
 background_mode = 2
 sky = SubResource("Sky_8uu4m")
+adjustment_enabled = true
+adjustment_brightness = 2.0
 
 [sub_resource type="Curve3D" id="Curve3D_mufa6"]
 closed = true
