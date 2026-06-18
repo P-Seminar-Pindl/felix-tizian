@@ -126,6 +126,17 @@ sky_material = SubResource("ProceduralSkyMaterial_mbx4o")
 [sub_resource type="Environment" id="Environment_iip1w"]
 background_mode = 2
 sky = SubResource("Sky_8uu4m")
+fog_enabled = true
+fog_light_color = Color(1, 1, 1, 1)
+fog_light_energy = 0.2
+fog_density = 0.0005
+fog_depth_curve = 0.65975296
+fog_depth_begin = 0.0
+fog_depth_end = 541.3
+volumetric_fog_density = 0.0292
+volumetric_fog_emission = Color(0.26666668, 0.26666668, 0.26666668, 1)
+volumetric_fog_detail_spread = 0.7071069
+volumetric_fog_ambient_inject = 0.16
 adjustment_enabled = true
 adjustment_brightness = 2.0
 

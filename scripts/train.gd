@@ -17,9 +17,9 @@ func _physics_process(delta: float) -> void:
 		return
 
 	var input_dir := 0.0
-	if Input.is_key_pressed(KEY_UP):
-		input_dir += 1.0
 	if Input.is_key_pressed(KEY_DOWN):
+		input_dir += 1.0
+	if Input.is_key_pressed(KEY_UP):
 		input_dir -= 1.0
 	if Input.is_key_pressed(KEY_SPACE):
 		input_dir = 0.0
