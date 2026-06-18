@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bhk7swk7xodpk" path="res://scripts/path_3d.gd" id="2_iip1w"]
 [ext_resource type="Script" uid="uid://cwr01nyqika8a" path="res://scripts/path_follow_3d.gd" id="3_mufa6"]
 [ext_resource type="ArrayMesh" uid="uid://cx320juvmmel6" path="res://assets/models/218.obj" id="5_2ivqk"]
+[ext_resource type="Script" uid="uid://8f3h2k9d0f5k" path="res://scripts/forest.gd" id="6_forest"]
 
 [sub_resource type="GDScript" id="GDScript_mufa6"]
 script/source = "extends Node3D
@@ -188,3 +189,9 @@ current = true
 [node name="218" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
 transform = Transform3D(-0.09999236, 0, 0.0012390185, 0, 0.09999999, 0, -0.0012390185, 0, -0.09999236, -0.048402786, 0.17071366, -0.9286308)
 mesh = ExtResource("5_2ivqk")
+
+[node name="Forest" type="Node3D" parent="."]
+script = ExtResource("6_forest")
+path = NodePath("Path3D")
+count = 1600
+path_band = 22.0

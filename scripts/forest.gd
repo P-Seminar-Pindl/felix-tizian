@@ -3,6 +3,7 @@ extends Node3D
 @export var path: NodePath = NodePath()
 @export var count := 1600
 @export var path_band := 22.0
+@export var min_distance := 2.5  # Minimum distance from path center (increased for safety)
 
 func _ready() -> void:
 	var resolved_path := get_node_or_null(path) as Path3D
@@ -16,6 +17,18 @@ func _ready() -> void:
 	var baked_length := curve.get_baked_length()
 	if baked_length <= 0.0:
 		return
+
+	# Get track separation from path_3d script to calculate safe distance
+	var path_script = resolved_path.get_script()
+	var track_separation := 1.5  # Default value
+	if path_script != null:
+		var track_sep_value = resolved_path.get("track_separation")
+		if track_sep_value != null:
+			track_separation = track_sep_value
+
+	# Ensure minimum distance accounts for track and parallel lines
+	# Parallel lines are at track_separation * 0.5 from center
+	var safe_min_distance: float = max(min_distance, (track_separation * 0.5) + 1.5)
 
 	var terrain: Terrain3D = get_parent().find_child("Terrain3D", false, false) as Terrain3D
 	if terrain == null:
@@ -36,7 +49,7 @@ func _ready() -> void:
 		var local_point := curve.sample_baked(along, true)
 
 		var angle := randf_range(0.0, TAU)
-		var distance := randf_range(2.0, path_band)
+		var distance := randf_range(safe_min_distance, path_band)
 		var local_offset := Vector3(cos(angle) * distance, 0.0, sin(angle) * distance)
 		var world_point := resolved_path.to_global(local_point + local_offset)
 
