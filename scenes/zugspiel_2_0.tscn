@@ -179,8 +179,6 @@ script = ExtResource("3_mufa6")
 unique_name_in_owner = true
 transform = Transform3D(0.9985988, 0.0009092917, 0.05297321, -0.00090930145, 0.99999946, -2.4096575e-05, -0.05297336, -2.4098903e-05, 0.9985994, 0, 0, 0)
 script = ExtResource("1_mbx4o")
-max_speed = 20.0
-acceleration = 10.0
 
 [node name="Führerstand" type="Camera3D" parent="Path3D/PathFollow3D/Train"]
 transform = Transform3D(-1.0000037, 1.5832484e-08, -2.0861626e-07, 9.313226e-10, 1, 8.381903e-09, 1.4901161e-07, 4.656613e-10, -1.0000031, -0.025421143, 1.8789332, -1.0726929)
@@ -196,7 +194,8 @@ font_size = 12
 outline_size = 0
 
 [node name="218" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
-transform = Transform3D(-0.09999236, 0, 0.0012390185, 0, 0.09999999, 0, -0.0012390185, 0, -0.09999236, -0.048402786, 0.17071366, -0.9286308)
+transform = Transform3D(-0.3999693, 0, 0.004956084, 0, 0.4, 0, -0.004956084, 0, -0.3999693, -0.048402786, 0.17071366, -0.9286308)
+visible = false
 mesh = ExtResource("5_2ivqk")
 
 [node name="Forest" type="Node3D" parent="."]
