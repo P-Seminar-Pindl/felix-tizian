@@ -2,20 +2,29 @@ extends Node3D
 
 @onready var path: Path3D = $"."
 
-@export var segment_step := 0.05 
+@export_category("Curve Settings")
+@export var segment_step := 0.1          # Smoothness of the rails
+@export var tie_spacing_step := 0.4      # How far apart the horizontal planks are
 @export var smoothing_passes := 2
 @export var smoothing_samples := 1600 
 @export var track_separation := 1.5 
 
-# Color of the lines in the viewport
-@export var track_color := Color8(255, 255, 255, 255) 
+@export_category("Colors")
+@export var rail_color := Color8(200, 200, 200, 255) # Metallic silver
+@export var tie_color := Color8(105, 70, 45, 255)    # Wooden brown
+
+@export_category("Dimensions")
+# X = Width, Y = Height, Z = Length along track
+@export var rail_size := Vector3(0.1, 0.15, 0.2) 
+# X = Long span across track, Y = Thickness, Z = Width of plank
+@export var tie_size := Vector3(2.0, 0.06, 0.2) 
 
 func _ready() -> void:
 	if path == null or path.curve == null:
 		return
 
 	path.curve = _create_smoothed_curve(path.curve)
-	_build_parallel_lines()
+	_build_track_multimesh()
 
 func _create_smoothed_curve(source: Curve3D) -> Curve3D:
 	var length := source.get_baked_length()
@@ -58,31 +67,29 @@ func _create_smoothed_curve(source: Curve3D) -> Curve3D:
 		smoothed_curve.add_point(point)
 	return smoothed_curve
 
-func _build_parallel_lines() -> void:
-	# Clear out any old instances
+func _build_track_multimesh() -> void:
+	# Clear out any previous MultiMesh instances
 	for child in path.get_children():
-		if child is MeshInstance3D:
+		if child is MultiMeshInstance3D:
 			child.queue_free()
 
 	var length := path.curve.get_baked_length()
+	
+	# Temporary arrays to hold transform data before pushing to GPU
+	var rail_transforms: Array[Transform3D] = []
+	var tie_transforms: Array[Transform3D] = []
+
+	# --- PASS 1: Generate Parallel Rails ---
 	var d := 0.0
 	var prev_pos := path.curve.sample_baked(0.0)
-
-	# Arrays to hold our raw vertex coordinates
-	var left_line_points := PackedVector3Array()
-	var right_line_points := PackedVector3Array()
-
-	# First pass: Collect all the offset vertex points mathematically
+	
 	while d < length:
 		d += segment_step
-		if d > length:
-			d = length
+		if d > length: d = length
 
 		var pos := path.curve.sample_baked(d)
 		var diff := pos - prev_pos
-		var dist := diff.length()
-		
-		if dist < 0.0001: 
+		if diff.length() < 0.0001: 
 			prev_pos = pos
 			continue
 
@@ -91,32 +98,70 @@ func _build_parallel_lines() -> void:
 		var side_dir := direction.cross(Vector3.UP).normalized()
 		var half_offset := side_dir * (track_separation * 0.5)
 
-		# Store the raw positions directly without creating objects
-		left_line_points.append(center_pos + half_offset)
-		right_line_points.append(center_pos - half_offset)
+		var base_xform := Transform3D().looking_at(direction, Vector3.UP)
+
+		# Left Rail Transform
+		var left_xform := base_xform
+		left_xform.origin = center_pos + half_offset
+		rail_transforms.append(left_xform)
+
+		# Right Rail Transform
+		var right_xform := base_xform
+		right_xform.origin = center_pos - half_offset
+		rail_transforms.append(right_xform)
 
 		prev_pos = pos
 
-	# Second pass: Generate the meshes from raw points (No rotations required!)
-	_create_line_mesh(left_line_points)
-	_create_line_mesh(right_line_points)
-
-func _create_line_mesh(points: PackedVector3Array) -> void:
-	if points.size() < 2:
-		return
-
-	var mesh_instance := MeshInstance3D.new()
-	var immediate_mesh := ImmediateMesh.new()
-	var material := ORMMaterial3D.new()
+	# --- PASS 2: Generate Horizontal Planks (Ties) ---
+	d = 0.0
+	prev_pos = path.curve.sample_baked(0.0)
 	
-	# Configure a basic unshaded color material for the path lines
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	material.albedo_color = track_color
+	while d < length:
+		d += tie_spacing_step
+		if d > length: d = length
 
-	immediate_mesh.surface_begin(Mesh.PRIMITIVE_LINE_STRIP, material)
-	for point in points:
-		immediate_mesh.surface_add_vertex(point)
-	immediate_mesh.surface_end()
+		var pos := path.curve.sample_baked(d)
+		var diff := pos - prev_pos
+		if diff.length() < 0.0001:
+			prev_pos = pos
+			continue
 
-	mesh_instance.mesh = immediate_mesh
-	path.add_child(mesh_instance)
+		var center_pos := (prev_pos + pos) * 0.5
+		var direction := diff.normalized()
+
+		# Planks align centered on the track, spanning outward on the X axis
+		var tie_xform := Transform3D().looking_at(direction, Vector3.UP)
+		tie_xform.origin = center_pos
+		tie_transforms.append(tie_xform)
+
+		prev_pos = pos
+
+	# --- PASS 3: Instantiate MultiMeshes ---
+	if rail_transforms.size() > 0:
+		_create_multimesh_instance("Track_Rails", rail_size, rail_color, rail_transforms)
+	if tie_transforms.size() > 0:
+		_create_multimesh_instance("Track_Planks", tie_size, tie_color, tie_transforms)
+
+func _create_multimesh_instance(node_name: String, box_size: Vector3, color: Color, transforms: Array[Transform3D]) -> void:
+	var multimesh_instance := MultiMeshInstance3D.new()
+	multimesh_instance.name = node_name
+	
+	var multimesh := MultiMesh.new()
+	multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	
+	# Build the shared mesh resource
+	var box_mesh := BoxMesh.new()
+	box_mesh.size = box_size
+	
+	var material := StandardMaterial3D.new()
+	material.albedo_color = color
+	box_mesh.material = material
+	multimesh.mesh = box_mesh
+	
+	# Allocate memory on the GPU all at once
+	multimesh.instance_count = transforms.size()
+	for i in range(transforms.size()):
+		multimesh.set_instance_transform(i, transforms[i])
+		
+	multimesh_instance.multimesh = multimesh
+	path.add_child(multimesh_instance)
