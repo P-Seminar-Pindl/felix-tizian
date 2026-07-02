@@ -169,6 +169,7 @@ metadata/_edit_lock_ = true
 environment = SubResource("Environment_iip1w")
 
 [node name="Path3D" type="Path3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(-0.99999887, 0, 0.0015009954, 0, 1, 0, -0.0015009954, 0, -0.99999887, 0, 1, 0)
 curve = SubResource("Curve3D_mufa6")
 script = ExtResource("2_iip1w")
@@ -190,7 +191,7 @@ transform = Transform3D(0.9998999, 0.0002447334, -0.014256865, -0.00024471385, 1
 no_depth_test = true
 fixed_size = true
 alpha_antialiasing_edge = 0.75
-texture_filter = 2
+texture_filter = 1
 render_priority = 1
 outline_render_priority = 0
 modulate = Color(0, 0, 0, 1)
