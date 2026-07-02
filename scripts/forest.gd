@@ -4,19 +4,14 @@ extends Node3D
 @export var count := 1600
 @export var path_band := 22.0
 @export var min_distance := 2.5  # Minimum distance from path center
-@export var tree_spacing := 2.0  # Minimum distance BETWEEN trees to avoid intersection
+@export var tree_spacing := 2.0  # NEW: Minimum distance BETWEEN trees to avoid intersection
 
 func _ready() -> void:
-	# 1. Try to resolve the manually exported path first
 	var resolved_path := get_node_or_null(path) as Path3D
-	
-	# 2. If not explicitly set, search dynamically up the scene tree
 	if resolved_path == null:
-		resolved_path = _find_path_upwards(self)
+		resolved_path = get_parent().get_node_or_null("Path3D") as Path3D
 
-	# If still not found, safely abort
 	if resolved_path == null or resolved_path.curve == null:
-		push_warning("TreeGenerator: Could not find a valid Path3D node up the hierarchy.")
 		return
 
 	var curve: Curve3D = resolved_path.curve
@@ -24,18 +19,20 @@ func _ready() -> void:
 	if baked_length <= 0.0:
 		return
 
-	# Get track separation from path script if it exists
+	# Get track separation from path_3d script to calculate safe distance
 	var path_script = resolved_path.get_script()
-	var track_separation := 1.5
+	var track_separation := 1.5  # Default value
 	if path_script != null:
 		var track_sep_value = resolved_path.get("track_separation")
 		if track_sep_value != null:
 			track_separation = track_sep_value
 
+	# Ensure minimum distance accounts for track and parallel lines
 	var safe_min_distance: float = max(min_distance, (track_separation * 0.5) + 1.5)
 
-	# Dynamically look for Terrain3D in the parent hierarchy as well
-	var terrain := _find_terrain_upwards(self)
+	var terrain: Terrain3D = get_parent().find_child("Terrain3D", false, false) as Terrain3D
+	if terrain == null:
+		terrain = get_parent().get_node_or_null("Terrain3D") as Terrain3D
 
 	var trunk_material := StandardMaterial3D.new()
 	trunk_material.albedo_color = Color("5a2a00")
@@ -47,13 +44,16 @@ func _ready() -> void:
 
 	randomize()
 
+	# Keep track of successfully placed tree positions (XZ only for distance checks)
 	var placed_tree_positions: Array[Vector2] = []
 	var max_attempts_per_tree := 15
 
 	for i in range(count):
 		var placed_successfully := false
 		var final_world_point := Vector3.ZERO
+		var ground_height := 0.0
 		
+		# Try to find a valid spot that doesn't intersect
 		for attempt in range(max_attempts_per_tree):
 			var along := randf_range(0.0, baked_length)
 			var local_point := curve.sample_baked(along, true)
@@ -61,32 +61,36 @@ func _ready() -> void:
 			var angle := randf_range(0.0, TAU)
 			var distance := randf_range(safe_min_distance, path_band)
 			var local_offset := Vector3(cos(angle) * distance, 0.0, sin(angle) * distance)
-			
-			# Transform to global space correctly using the dynamically found path
 			var world_point := resolved_path.to_global(local_point + local_offset)
-			var new_tree_pos_2d := Vector2(world_point.x, world_point.z)
 			
+			# Check against all previously placed trees (2D top-down distance check)
+			var new_tree_pos_2d := Vector2(world_point.x, world_point.z)
 			var too_close := false
+			
 			for existing_pos in placed_tree_positions:
 				if new_tree_pos_2d.distance_to(existing_pos) < tree_spacing:
 					too_close = true
-					break
+					break # Stop checking, this spot is invalid
 			
 			if not too_close:
+				# Found a good spot!
 				final_world_point = world_point
 				placed_tree_positions.append(new_tree_pos_2d)
 				placed_successfully = true
 				break
 		
+		# If we couldn't find a spot after max_attempts, skip this tree
 		if not placed_successfully:
 			continue
 
-		var ground_height := final_world_point.y
+		# Calculate height for the valid spot
+		ground_height = final_world_point.y
 		if terrain != null and terrain.data != null:
 			ground_height = terrain.data.get_height(final_world_point)
 			if is_nan(ground_height):
 				ground_height = final_world_point.y
 
+		# Instantiate the tree
 		var tree := Node3D.new()
 		tree.position = Vector3(final_world_point.x, ground_height, final_world_point.z)
 		tree.rotation.y = randf_range(0.0, TAU)
@@ -116,29 +120,3 @@ func _ready() -> void:
 
 		add_child(tree)
 		tree.owner = self
-
-# Helper function to recursively search up the scene tree for a Path3D node
-func _find_path_upwards(current_node: Node) -> Path3D:
-	var parent := current_node.get_parent()
-	if parent == null:
-		return null
-	
-	# Look through the parent's children first
-	for child in parent.get_children():
-		if child is Path3D:
-			return child
-			
-	# If not found, go up another level
-	return _find_path_upwards(parent)
-
-# Helper function to recursively search up the scene tree for a Terrain3D node
-func _find_terrain_upwards(current_node: Node) -> Terrain3D:
-	var parent := current_node.get_parent()
-	if parent == null:
-		return null
-		
-	var found = parent.find_child("Terrain3D", true, false)
-	if found is Terrain3D:
-		return found
-		
-	return _find_terrain_upwards(parent)
