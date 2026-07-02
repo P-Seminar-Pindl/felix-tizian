@@ -1,10 +1,10 @@
 extends CharacterBody3D
 
 @export var path_follow: PathFollow3D
-@export var max_speed := 4.0
-@export var acceleration := 5.0
+@export var max_speed := 95
 @export var braking := 6.0
-@export var progress_scale := 1.0
+@export var acceleration := 2
+@export var progress_scale := 0.5
 
 var current_speed := 0.0
 
@@ -17,7 +17,7 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	var tacho := $"./Führerstand/speed"
-	var stext = round(current_speed)*-1
+	var stext = round(current_speed*-1.67)
 	get_node(tacho.get_path()).text = str("Speed: "+str(stext))
 
 	var input_dir := 0.0
