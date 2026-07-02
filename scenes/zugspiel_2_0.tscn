@@ -202,14 +202,9 @@ outline_size = 0
 horizontal_alignment = 0
 vertical_alignment = 0
 
-<<<<<<< HEAD
-[node name="Model" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
-transform = Transform3D(-0.09999236, 0, 0.0012390185, 0, 0.09999999, 0, -0.0012390185, 0, -0.09999236, -0.048402786, 0.17071366, -0.9286308)
-=======
 [node name="218" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
 transform = Transform3D(-0.3999693, 0, 0.004956084, 0, 0.4, 0, -0.004956084, 0, -0.3999693, -0.048402786, 0.17071366, -0.9286308)
 visible = false
->>>>>>> ef42a89ad716c4d64b45c896823d85e3ba5fc071
 mesh = ExtResource("5_2ivqk")
 
 [node name="Forest" type="Node3D" parent="."]
