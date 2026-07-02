@@ -195,7 +195,7 @@ text = "888888 h5"
 font_size = 12
 outline_size = 0
 
-[node name="218" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
+[node name="Model" type="MeshInstance3D" parent="Path3D/PathFollow3D/Train"]
 transform = Transform3D(-0.09999236, 0, 0.0012390185, 0, 0.09999999, 0, -0.0012390185, 0, -0.09999236, -0.048402786, 0.17071366, -0.9286308)
 mesh = ExtResource("5_2ivqk")
 
